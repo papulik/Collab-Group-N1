@@ -1,0 +1,45 @@
+# macOS
+.DS_Store
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Xcode
+xcuserdata/
+*.xcscmblueprint
+*.xcuserstate
+
+# Swift Package Manager
+.build/
+Packages/
+Package.pins
+Package.resolved
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/report.xml
+
+# Code Injection by AppCode
+.idea/
+
+# SPM Package
+.swiftpm/
+
+# Xcode Derived Data
+DerivedData/
+build/
