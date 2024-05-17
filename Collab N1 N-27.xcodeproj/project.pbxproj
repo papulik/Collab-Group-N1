@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A0F718B2BF7C92F00CDD8CC /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0F718A2BF7C92F00CDD8CC /* WeatherTableViewCell.swift */; };
+		33759CF52BF7CA2E005146CC /* SolarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33759CF42BF7CA2E005146CC /* SolarTableViewCell.swift */; };
 		609128922BF6A25B00951F02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609128912BF6A25B00951F02 /* AppDelegate.swift */; };
 		609128942BF6A25B00951F02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609128932BF6A25B00951F02 /* SceneDelegate.swift */; };
 		6091289B2BF6A25D00951F02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6091289A2BF6A25D00951F02 /* Assets.xcassets */; };
@@ -28,10 +29,12 @@
 		609128D82BF6A94300951F02 /* SolarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609128D72BF6A94300951F02 /* SolarViewModel.swift */; };
 		609128DA2BF6A95A00951F02 /* PopulationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609128D92BF6A95A00951F02 /* PopulationViewModel.swift */; };
 		609128DF2BF6BC8C00951F02 /* NetWorkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609128DE2BF6BC8C00951F02 /* NetWorkingService.swift */; };
+		FB55C2FE2BF7400600A5347F /* SpecieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB55C2FD2BF7400600A5347F /* SpecieCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1A0F718A2BF7C92F00CDD8CC /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
+		33759CF42BF7CA2E005146CC /* SolarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarTableViewCell.swift; sourceTree = "<group>"; };
 		6091288E2BF6A25B00951F02 /* Collab N1 N-27.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Collab N1 N-27.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		609128912BF6A25B00951F02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		609128932BF6A25B00951F02 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +57,7 @@
 		609128D72BF6A94300951F02 /* SolarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarViewModel.swift; sourceTree = "<group>"; };
 		609128D92BF6A95A00951F02 /* PopulationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopulationViewModel.swift; sourceTree = "<group>"; };
 		609128DE2BF6BC8C00951F02 /* NetWorkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkingService.swift; sourceTree = "<group>"; };
+		FB55C2FD2BF7400600A5347F /* SpecieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecieCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,10 @@
 			isa = PBXGroup;
 			children = (
 				1A0F718A2BF7C92F00CDD8CC /* WeatherTableViewCell.swift */,
+		33759CF62BF7CA3C005146CC /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				33759CF42BF7CA2E005146CC /* SolarTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -164,6 +172,7 @@
 		609128BE2BF6A60200951F02 /* SpeciePage */ = {
 			isa = PBXGroup;
 			children = (
+				FB55C2FC2BF73FE000A5347F /* Cell */,
 				609128B62BF6A5C800951F02 /* SpeciePageVC.swift */,
 				609128D52BF6A93500951F02 /* SpecieViewModel.swift */,
 			);
@@ -175,6 +184,7 @@
 			children = (
 				609128B82BF6A5DA00951F02 /* SolarResourcePageVC.swift */,
 				609128D72BF6A94300951F02 /* SolarViewModel.swift */,
+				33759CF62BF7CA3C005146CC /* Cell */,
 			);
 			path = SolarPage;
 			sourceTree = "<group>";
@@ -246,6 +256,14 @@
 				609128DE2BF6BC8C00951F02 /* NetWorkingService.swift */,
 			);
 			path = NetworkingService;
+			sourceTree = "<group>";
+		};
+		FB55C2FC2BF73FE000A5347F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FB55C2FD2BF7400600A5347F /* SpecieCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,11 +348,13 @@
 				609128B32BF6A59100951F02 /* AirQualityVC.swift in Sources */,
 				609128942BF6A25B00951F02 /* SceneDelegate.swift in Sources */,
 				609128CB2BF6A88300951F02 /* SolarInfo.swift in Sources */,
+				FB55C2FE2BF7400600A5347F /* SpecieCell.swift in Sources */,
 				609128C52BF6A81E00951F02 /* AirQualityInfo.swift in Sources */,
 				609128D82BF6A94300951F02 /* SolarViewModel.swift in Sources */,
 				609128C22BF6A65800951F02 /* AirQualityViewModel.swift in Sources */,
 				609128BB2BF6A5E900951F02 /* PopulationPageVC.swift in Sources */,
 				609128DF2BF6BC8C00951F02 /* NetWorkingService.swift in Sources */,
+				33759CF52BF7CA2E005146CC /* SolarTableViewCell.swift in Sources */,
 				609128DA2BF6A95A00951F02 /* PopulationViewModel.swift in Sources */,
 				609128B72BF6A5C800951F02 /* SpeciePageVC.swift in Sources */,
 			);
