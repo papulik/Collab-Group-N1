@@ -17,7 +17,7 @@ final class SpeciePageVC: UIViewController {
     private let errorLabel = UILabel()
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     
-    var viewModel = SpecieViewModel()
+    private let viewModel = SpecieViewModel()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

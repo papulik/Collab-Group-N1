@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SpecieCell: UITableViewCell {
+final class SpecieCell: UITableViewCell {
     // MARK: Properties
     
     private let mainStackView = UIStackView()
