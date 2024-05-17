@@ -75,7 +75,6 @@ FB55C2FD2BF7400600A5347F /* SpecieCell.swift */ = {isa = PBXFileReference; lastK
     isa = PBXGroup;
     children = (
         1A0F718A2BF7C92F00CDD8CC /* WeatherTableViewCell.swift */,
-        33759CF42BF7CA2E005146CC /* SolarTableViewCell.swift */,
     );
     path = Cell;
     sourceTree = "<group>";
@@ -186,10 +185,18 @@ FB55C2FD2BF7400600A5347F /* SpecieCell.swift */ = {isa = PBXFileReference; lastK
     path = SolarPage;
     sourceTree = "<group>";
 };
+33759CF62BF7CA3C005146CC /* Cell */ = {
+    isa = PBXGroup;
+    children = (
+        33759CF42BF7CA2E005146CC /* SolarTableViewCell.swift */,
+    );
+    path = Cell;
+    sourceTree = "<group>";
+};
 609128C02BF6A63A00951F02 /* PopulationPage */ = {
     isa = PBXGroup;
     children = (
-        609128BA2BF6A5E900951F02 /* PopulationPageVC */,
+        609128BA2BF6A5E900951F02 /* PopulationPageVC.swift */,
         609128D92BF6A95A00951F02 /* PopulationViewModel.swift */,
     );
     path = PopulationPage;
