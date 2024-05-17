@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+struct TotalPopulation: Decodable {
+    var total_population: [Population]
+}
+
+struct Population: Decodable {
+    var date: String
+    var population: Int
+}
