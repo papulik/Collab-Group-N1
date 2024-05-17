@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AirQualityViewModel {
+final class AirQualityViewModel {
     
     var airQualityInfo: AirQualityInfo?
     

@@ -9,6 +9,7 @@ import UIKit
 
 final class AirQualityVC: UIViewController {
     
+    //MARK: - Properties
     private let viewModel = AirQualityViewModel()
     
     private let latTextField: UITextField = {
@@ -46,12 +47,14 @@ final class AirQualityVC: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+
+    //MARK: - LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
+    //MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = .backGroundColoring
         
@@ -120,6 +123,7 @@ final class AirQualityVC: UIViewController {
         }
     }
     
+    //MARK: - Update UI
     private func updateUI(with info: AirQualityInfo) {
         resultLabel.textColor = .white
         resultLabel.text = """
