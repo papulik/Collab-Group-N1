@@ -14,6 +14,8 @@ final class SpeciePageVC: UIViewController {
     private let tableView = UITableView()
     private let searchTextField = UITextField()
     private let searchButton = UIButton(type: .system)
+    private let errorLabel = UILabel()
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
     
     var viewModel = SpecieViewModel()
     
@@ -30,6 +32,8 @@ final class SpeciePageVC: UIViewController {
         setupMainStackView()
         setupSearchBar()
         setupTableView()
+        setupErrorLabel()
+        setupActivityIndicator()
     }
     
     private func setupMainStackView() {
@@ -98,12 +102,57 @@ extension SpeciePageVC: UITableViewDataSource {
         cell.configure(with: species.taxon)
         return cell
     }
+    
+    private func setupErrorLabel() {
+        view.addSubview(errorLabel)
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+        errorLabel.text = "ინფორმაცია ვერ მოიძებნა"
+        errorLabel.textColor = .red
+        errorLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        errorLabel.isHidden = true
+    }
+    
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+        activityIndicator.hidesWhenStopped = true
+    }
 }
 
 // MARK: - SpecieViewModelDelegate
 extension SpeciePageVC: SpecieViewModelDelegate {
+    
+    func didStartFetchingSpeciesData() {
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+            self.errorLabel.isHidden = true
+        }
+    }
+    
+    func didFailToFetchSpeciesData(with error: any Error) {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.viewModel.speciesInfo.removeAll()
+            self.errorLabel.isHidden = false
+            self.tableView.reloadData()
+        }
+    }
+    
     func didFetchSpeciesData() {
         DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.errorLabel.isHidden = true
             self.tableView.reloadData()
         }
     }

@@ -8,11 +8,12 @@
 import Foundation
 
 protocol SpecieViewModelDelegate: AnyObject {
+    func didStartFetchingSpeciesData()
     func didFetchSpeciesData()
+    func didFailToFetchSpeciesData(with error: Error)
 }
 
 final class SpecieViewModel {
-    
     weak var delegate: SpecieViewModelDelegate?
     
     var places = [Place]()
@@ -22,31 +23,52 @@ final class SpecieViewModel {
     var speciesCountsURL: URL!
     
     // MARK: - Data Fetching
-    func fetchAutocompleteData() {
+    func fetchAutocompleteData(for city: String) {
+        delegate?.didStartFetchingSpeciesData()
+        
         NetworkingService.shared.fetchData(from: self.autocompleteURL) { [weak self] (result: Result<PlaceAutocompleteResult, Error>) in
             switch result {
             case .success(let autocompleteResult):
-                if let place = autocompleteResult.results.first {
-                    let cityID = place.id
-                    self?.speciesCountsURL = URL(string: "https://api.inaturalist.org/v1/observations/species_counts?place_id=\(cityID)")!
-                    self?.fetchSpeciesCountsData()
+                let matchingPlaces = autocompleteResult.results.filter { $0.name.lowercased() == city.lowercased() || $0.displayName.lowercased() == city.lowercased() }
+                if let firstPlace = matchingPlaces.first {
+                    self?.fetchSpeciesCounts(for: [firstPlace])
+                } else {
+                    self?.delegate?.didFailToFetchSpeciesData(with: NSError(domain: "error", code: 0, userInfo: nil))
                 }
             case .failure(let error):
-                print("შეცდომა ქალაქის ავტომატური დასრულებისას: \(error)")
+                self?.delegate?.didFailToFetchSpeciesData(with: error)
             }
         }
     }
     
-    func fetchSpeciesCountsData() {
-        NetworkingService.shared.fetchData(from: self.speciesCountsURL) { [weak self] (result: Result<Response, Error>) in
-            switch result {
-            case .success(let speciesCountsResult):
-                self?.speciesInfo = speciesCountsResult.results
-                self?.delegate?.didFetchSpeciesData()
-            case .failure(let error):
-                print("შეცდომა სახეობების რაოდენობის მიღებისას: \(error)")
+    private func fetchSpeciesCounts(for places: [Place]) {
+        var remainingPlaces = places
+        
+        func fetchNext() {
+            guard let place = remainingPlaces.first else {
+                self.delegate?.didFailToFetchSpeciesData(with: NSError(domain: "error", code: 0, userInfo: nil))
+                return
+            }
+            
+            remainingPlaces.removeFirst()
+            
+            self.speciesCountsURL = URL(string: "https://api.inaturalist.org/v1/observations/species_counts?place_id=\(place.id)")!
+            
+            NetworkingService.shared.fetchData(from: self.speciesCountsURL) { [weak self] (result: Result<TaxonResponse, Error>) in
+                switch result {
+                case .success(let speciesCountsResult):
+                    if !speciesCountsResult.results.isEmpty {
+                        self?.speciesInfo = speciesCountsResult.results
+                        self?.delegate?.didFetchSpeciesData()
+                    } else {
+                        fetchNext()
+                    }
+                case .failure:
+                    fetchNext()
+                }
             }
         }
+        fetchNext()
     }
     
     // MARK: - Actions
@@ -54,7 +76,8 @@ final class SpecieViewModel {
         guard let autocompleteURL = URL(string: "https://api.inaturalist.org/v1/places/autocomplete?q=\(city)") else {
             return
         }
+        
         self.autocompleteURL = autocompleteURL
-        self.fetchAutocompleteData()
+        self.fetchAutocompleteData(for: city)
     }
 }

@@ -93,7 +93,7 @@ class SpecieCell: UITableViewCell {
         authorStackView.spacing = 5
         
         author.font = UIFont.boldSystemFont(ofSize: 16)
-        author.text = "ინფორმაციის ავტორი:"
+        author.text = "სახეობა:"
         author.numberOfLines = 0
         
         authorResponse.font = UIFont.systemFont(ofSize: 16)

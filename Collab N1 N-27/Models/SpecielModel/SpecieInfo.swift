@@ -23,7 +23,7 @@ struct Place: Codable {
     }
 }
 
-struct Response: Decodable {
+struct TaxonResponse: Decodable {
     let results: [TaxonResult]
 }
 
@@ -33,7 +33,7 @@ struct TaxonResult: Decodable {
 
 struct Taxon: Decodable {
     let name: String?
-    let defaultPhoto: DefaultPhoto?
+    let defaultPhoto: TaxonDefaultPhoto?
     let wikipediaUrl: String?
     let iconicTaxonName: String?
     let preferredCommonName: String?
@@ -47,7 +47,7 @@ struct Taxon: Decodable {
     }
 }
 
-struct DefaultPhoto: Decodable {
+struct TaxonDefaultPhoto: Decodable {
     let squareUrl: String?
     let mediumUrl: String?
 
