@@ -38,6 +38,7 @@ class SolarResourcePageVC: UIViewController, UITableViewDataSource, UITableViewD
         // Setup tableView
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
+        tableView.register(SolarTableViewCell.self, forCellReuseIdentifier: SolarTableViewCell.identifier)
         
         // Add constraints
         NSLayoutConstraint.activate([
@@ -99,17 +100,17 @@ class SolarResourcePageVC: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        guard let solarData = viewModel.solarData else { return cell }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SolarTableViewCell.identifier, for: indexPath) as? SolarTableViewCell,
+              let solarData = viewModel.solarData else { return UITableViewCell() }
         
         let index = indexPath.row
         
         if index == 0 {
-            cell.textLabel?.text = "Average DNI (annual): \(solarData.avgDNI.annual)"
+            cell.configure(with: "Average DNI (annual): \(solarData.avgDNI.annual)")
         } else if index == 1 {
-            cell.textLabel?.text = "Average GHI (annual): \(solarData.avgGHI.annual)"
+            cell.configure(with: "Average GHI (annual): \(solarData.avgGHI.annual)")
         } else if index == 2 {
-            cell.textLabel?.text = "Average LatTilt (annual): \(solarData.avgLatTilt.annual)"
+            cell.configure(with: "Average LatTilt (annual): \(solarData.avgLatTilt.annual)")
         } else {
             let monthIndex = index - 3
             let monthKeys = Array(solarData.avgDNI.monthly.keys.sorted())
@@ -117,7 +118,7 @@ class SolarResourcePageVC: UIViewController, UITableViewDataSource, UITableViewD
             let dniValue = solarData.avgDNI.monthly[month] ?? 0
             let ghiValue = solarData.avgGHI.monthly[month] ?? 0
             let latTiltValue = solarData.avgLatTilt.monthly[month] ?? 0
-            cell.textLabel?.text = "\(month.capitalized): DNI: \(dniValue), GHI: \(ghiValue), LatTilt: \(latTiltValue)"
+            cell.configure(with: "\(month.capitalized): DNI: \(dniValue), GHI: \(ghiValue), LatTilt: \(latTiltValue)")
         }
         
         return cell
