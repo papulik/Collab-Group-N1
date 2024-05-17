@@ -27,6 +27,7 @@
 		609128D82BF6A94300951F02 /* SolarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609128D72BF6A94300951F02 /* SolarViewModel.swift */; };
 		609128DA2BF6A95A00951F02 /* PopulationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609128D92BF6A95A00951F02 /* PopulationViewModel.swift */; };
 		609128DF2BF6BC8C00951F02 /* NetWorkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609128DE2BF6BC8C00951F02 /* NetWorkingService.swift */; };
+		FB55C2FE2BF7400600A5347F /* SpecieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB55C2FD2BF7400600A5347F /* SpecieCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		609128D72BF6A94300951F02 /* SolarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarViewModel.swift; sourceTree = "<group>"; };
 		609128D92BF6A95A00951F02 /* PopulationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopulationViewModel.swift; sourceTree = "<group>"; };
 		609128DE2BF6BC8C00951F02 /* NetWorkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkingService.swift; sourceTree = "<group>"; };
+		FB55C2FD2BF7400600A5347F /* SpecieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecieCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 		609128BE2BF6A60200951F02 /* SpeciePage */ = {
 			isa = PBXGroup;
 			children = (
+				FB55C2FC2BF73FE000A5347F /* Cell */,
 				609128B62BF6A5C800951F02 /* SpeciePageVC.swift */,
 				609128D52BF6A93500951F02 /* SpecieViewModel.swift */,
 			);
@@ -237,6 +240,14 @@
 			path = NetworkingService;
 			sourceTree = "<group>";
 		};
+		FB55C2FC2BF73FE000A5347F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FB55C2FD2BF7400600A5347F /* SpecieCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -318,6 +329,7 @@
 				609128B32BF6A59100951F02 /* AirQualityVC.swift in Sources */,
 				609128942BF6A25B00951F02 /* SceneDelegate.swift in Sources */,
 				609128CB2BF6A88300951F02 /* SolarInfo.swift in Sources */,
+				FB55C2FE2BF7400600A5347F /* SpecieCell.swift in Sources */,
 				609128C52BF6A81E00951F02 /* AirQualityInfo.swift in Sources */,
 				609128D82BF6A94300951F02 /* SolarViewModel.swift in Sources */,
 				609128C22BF6A65800951F02 /* AirQualityViewModel.swift in Sources */,
