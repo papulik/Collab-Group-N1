@@ -40,7 +40,6 @@ final class WeatherPageVC: UIViewController {
         
         view.addSubview(inputStackView)
         view.addSubview(cityLabel)
-        
         view.addSubview(tableView)
         
         inputStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +61,7 @@ final class WeatherPageVC: UIViewController {
         ])
         
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: "WeatherTableViewCell")
     }
     
     private func searchButtonTapped() {
@@ -92,7 +91,6 @@ final class WeatherPageVC: UIViewController {
         }
     }
     
-    
     private func showAlert(message: String) {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -107,16 +105,11 @@ extension WeatherPageVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
         if let forecast = viewModel.forecast(at: indexPath.row) {
-            let date = Date(timeIntervalSince1970: TimeInterval(forecast.dt))
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = Constants.dateFormat
-            let dateString = dateFormatter.string(from: date)
-            cell.textLabel?.numberOfLines = 0
-            cell.textLabel?.lineBreakMode = .byWordWrapping
-            cell.textLabel?.text = "\(dateString): Temp: \(forecast.main.temp)°C, \(forecast.weather.first?.description ?? "")"
+            cell.configure(with: forecast)
         }
         return cell
     }
 }
+

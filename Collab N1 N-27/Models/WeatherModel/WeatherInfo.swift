@@ -41,3 +41,6 @@ struct WeatherInfo: Decodable {
         let name: String
     }
 }
+
+
+
