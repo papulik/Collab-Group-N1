@@ -40,23 +40,32 @@ final class AirQualityVC: UIViewController {
         return label
     }()
     
+    private let qualityIndexText: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "AirQualityImage")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
     private func setupUI() {
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .backGroundColoring
         
         view.addSubview(latTextField)
         view.addSubview(lonTextField)
         view.addSubview(fetchButton)
         view.addSubview(resultLabel)
+        view.addSubview(qualityIndexText)
         
         latTextField.translatesAutoresizingMaskIntoConstraints = false
         lonTextField.translatesAutoresizingMaskIntoConstraints = false
         fetchButton.translatesAutoresizingMaskIntoConstraints = false
         resultLabel.translatesAutoresizingMaskIntoConstraints = false
+        qualityIndexText.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             latTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -73,7 +82,13 @@ final class AirQualityVC: UIViewController {
             resultLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             resultLabel.topAnchor.constraint(equalTo: fetchButton.bottomAnchor, constant: 20),
             resultLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            resultLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            resultLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            qualityIndexText.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            qualityIndexText.topAnchor.constraint(equalTo: resultLabel.bottomAnchor, constant: 20),
+            qualityIndexText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            qualityIndexText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            qualityIndexText.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
         
         fetchButton.addTarget(self, action: #selector(fetchAirQuality), for: .touchUpInside)
@@ -106,9 +121,9 @@ final class AirQualityVC: UIViewController {
     }
     
     private func updateUI(with info: AirQualityInfo) {
+        resultLabel.textColor = .white
         resultLabel.text = """
         City: \(info.data.city)
-        State: \(info.data.state)
         Country: \(info.data.country)
         
         TS: \(info.data.current.pollution.ts)
@@ -117,7 +132,6 @@ final class AirQualityVC: UIViewController {
         Aqicin Pollutant: \(info.data.current.pollution.aqicn)
         MainCN: \(info.data.current.pollution.maincn)
         
-        Temperature: \(info.data.current.weather.tp)°C
         Humidity: \(info.data.current.weather.hu)%
         Wind Speed: \(info.data.current.weather.ws) m/s
         """
