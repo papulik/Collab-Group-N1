@@ -16,7 +16,7 @@ struct Constants {
 }
 
 
-class WeatherViewModel {
+final class WeatherViewModel {
     private let networkingService = NetworkingService.shared
     private var weatherInfo: WeatherInfo?
     

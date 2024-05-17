@@ -9,17 +9,24 @@ import UIKit
 
 final class WeatherPageVC: UIViewController {
     
+    // MARK: - Properties
+
     private let viewModel = WeatherViewModel()
     private let tableView = UITableView()
     private let cityLabel = UILabel()
     private let cityTextField = UITextField()
     private let searchButton = UIButton(type: .system)
     
+    
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
+    // MARK: - UI Setup
+
     private func setupUI() {
         view.backgroundColor = .lightGray
         let inputStackView = UIStackView()
@@ -61,8 +68,11 @@ final class WeatherPageVC: UIViewController {
         ])
         
         tableView.dataSource = self
+        tableView.backgroundColor = .gray
         tableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: "WeatherTableViewCell")
     }
+    
+    // MARK: - Actions
     
     private func searchButtonTapped() {
         guard let input = cityTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !input.isEmpty else {
@@ -91,6 +101,8 @@ final class WeatherPageVC: UIViewController {
         }
     }
     
+    // MARK: - Helpers
+    
     private func showAlert(message: String) {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -98,6 +110,8 @@ final class WeatherPageVC: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension WeatherPageVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

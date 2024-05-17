@@ -7,7 +7,8 @@
 
 import UIKit
 
-class WeatherTableViewCell: UITableViewCell {
+
+final class WeatherTableViewCell: UITableViewCell {
     let dateLabel = UILabel()
     let tempLabel = UILabel()
     let descriptionLabel = UILabel()
@@ -15,13 +16,14 @@ class WeatherTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
-        contentView.backgroundColor = .darkGray
+        contentView.backgroundColor = .gray
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
+    // MARK: - UI Setup
     private func setupUI() {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         tempLabel.translatesAutoresizingMaskIntoConstraints = false
