@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - SolarData
+
 struct SolarData: Decodable {
     let avgDNI: SolarMetric
     let avgGHI: SolarMetric
@@ -19,10 +21,14 @@ struct SolarData: Decodable {
     }
 }
 
+// MARK: - SolarMetric
+
 struct SolarMetric: Decodable {
     let annual: Double
     let monthly: [String: Double]
 }
+
+// MARK: - SolarDataResponse
 
 struct SolarDataResponse: Decodable {
     let outputs: SolarData

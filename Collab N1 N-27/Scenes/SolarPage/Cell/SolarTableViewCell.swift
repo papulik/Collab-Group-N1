@@ -7,7 +7,9 @@
 
 import UIKit
 
-class SolarTableViewCell: UITableViewCell {
+final class SolarTableViewCell: UITableViewCell {
+    
+    // MARK: - Properties
     
     static let identifier = "SolarTableViewCell"
     
@@ -18,9 +20,12 @@ class SolarTableViewCell: UITableViewCell {
         return label
     }()
     
+    // MARK: - Initialization
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(dataLabel)
+        contentView.backgroundColor = .lightGray
         
         NSLayoutConstraint.activate([
             dataLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
@@ -34,8 +39,9 @@ class SolarTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with text: String) {
+    // MARK: - Configuration
+    
+    final func configure(with text: String) {
         dataLabel.text = text
     }
-    
 }
