@@ -28,7 +28,7 @@ final class SpeciePageVC: UIViewController {
     
     // MARK: - Setup
     private func setupUI() {
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .backGroundColoring
         setupMainStackView()
         setupSearchBar()
         setupTableView()
@@ -50,25 +50,28 @@ final class SpeciePageVC: UIViewController {
     }
     
     private func setupSearchBar() {
-        searchTextField.placeholder = "შეიყვანეთ ქალაქი"
+        searchTextField.placeholder = "Enter City"
         searchTextField.borderStyle = .roundedRect
         searchTextField.font = UIFont.systemFont(ofSize: 16)
         
         mainStackView.addArrangedSubview(searchTextField)
         
-        searchButton.setTitle("ძებნა", for: .normal)
+        searchButton.setTitle("Search", for: .normal)
         searchButton.setTitleColor(.white, for: .normal)
         searchButton.backgroundColor = .systemBlue
         searchButton.layer.cornerRadius = 10
         searchButton.clipsToBounds = true
-        searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
+        let searchAction = UIAction { [weak self] _ in
+            self?.searchButtonTapped()
+        }
+        searchButton.addAction(searchAction, for: .touchUpInside)
         
         mainStackView.addArrangedSubview(searchButton)
         searchButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
     }
     
     // MARK: - Actions
-    @objc private func searchButtonTapped() {
+    private func searchButtonTapped() {
         guard let cityName = searchTextField.text, !cityName.isEmpty else {
             return
         }
@@ -77,16 +80,17 @@ final class SpeciePageVC: UIViewController {
     
     private func setupTableView() {
         view.addSubview(tableView)
-        tableView.backgroundColor = .lightGray
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: mainStackView.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 20).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view .bottomAnchor).isActive = true
         
         tableView.dataSource = self
         tableView.register(SpecieCell.self, forCellReuseIdentifier: "SpecieCell")
+        tableView.backgroundColor = .backGroundColoring
+        tableView.layer.cornerRadius = 10
     }
 }
 
@@ -126,6 +130,7 @@ extension SpeciePageVC: UITableViewDataSource {
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
         
+        activityIndicator.color = .white
         activityIndicator.hidesWhenStopped = true
     }
 }

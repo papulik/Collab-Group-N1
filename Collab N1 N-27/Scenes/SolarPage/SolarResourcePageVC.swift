@@ -10,47 +10,50 @@ import UIKit
 final class SolarResourcePageVC: UIViewController {
     
     // MARK: - Properties
-    
     private var viewModel = SolarDataViewModel()
     private var tableView = UITableView()
     private var addressTextField = UITextField()
     private var fetchButton = UIButton(type: .system)
     
     // MARK: - View Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        setupTableView()
     }
     
     // MARK: - Setup
-    
     private func setupViews() {
-        view.backgroundColor = .gray
+        view.backgroundColor = .backGroundColoring
         
-        // Setup latTextField
+        view.addSubview(addressTextField)
+        view.addSubview(fetchButton)
+        view.addSubview(tableView)
+        
+        addressTextField.translatesAutoresizingMaskIntoConstraints = false
+        fetchButton.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         addressTextField.placeholder = "Enter address"
         addressTextField.borderStyle = .roundedRect
-        addressTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(addressTextField)
         
-        // Setup fetchButton
         fetchButton.setTitle("Fetch Solar", for: .normal)
         fetchButton.tintColor = .white
         fetchButton.backgroundColor = .systemBlue
         fetchButton.layer.cornerRadius = 10
-        fetchButton.addTarget(self, action: #selector(fetchButtonTapped), for: .touchUpInside)
-        fetchButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(fetchButton)
+        fetchButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.fetchButtonTapped()
+        }), for: .touchUpInside)
         
-        // Setup tableView
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
+        tableView.dataSource = self
         tableView.register(SolarTableViewCell.self, forCellReuseIdentifier: SolarTableViewCell.identifier)
-        tableView.backgroundColor = .gray
+        tableView.backgroundColor = .backGroundColoring
+        tableView.layer.cornerRadius = 10
         
-        // Add constraints
+        constraintsUI()
+    }
+    
+    //MARK: - Constraints
+    private func constraintsUI() {
         NSLayoutConstraint.activate([
             addressTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             addressTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -67,17 +70,10 @@ final class SolarResourcePageVC: UIViewController {
         ])
     }
     
-    private func setupTableView() {
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-    }
-    
     // MARK: - Actions
-    
-    @objc private func fetchButtonTapped() {
+    private func fetchButtonTapped() {
         guard let address = addressTextField.text, !address.isEmpty
         else {
-            // Show an alert if address is empty
             showAlert(message: "Please enter the address")
             return
         }
@@ -91,7 +87,6 @@ final class SolarResourcePageVC: UIViewController {
                     self.tableView.reloadData()
                 }
                 
-                
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.showAlert(message: "Try correct address/city name (for example: Arizona")
@@ -102,27 +97,25 @@ final class SolarResourcePageVC: UIViewController {
         }
     }
     
+    //MARK: - Error Alert
     private func showAlert(message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
-    
 }
 
 // MARK: - UITableViewDataSource
-
 extension SolarResourcePageVC: UITableViewDataSource {
-    
-    final func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Return number of rows based on data
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if let solarData = viewModel.solarData {
-            return 3 + solarData.avgDNI.monthly.count // DNI, GHI, LatTilt + Monthly data
+            return 3 + solarData.avgDNI.monthly.count
         }
         return 0
     }
     
-    final func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SolarTableViewCell.identifier, for: indexPath) as? SolarTableViewCell,
               let solarData = viewModel.solarData else { return UITableViewCell() }
         

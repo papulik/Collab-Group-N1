@@ -31,6 +31,9 @@ final class AirQualityVC: UIViewController {
     private let fetchButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Fetch Air Quality", for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -41,17 +44,19 @@ final class AirQualityVC: UIViewController {
         return label
     }()
     
-    private let qualityIndexText: UIImageView = {
+    private let qualityIndexImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "AirQualityImage")
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.backgroundColor = UIColor.backGroundColoring.cgColor
         return imageView
     }()
-
+    
     //MARK: - LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        actionForFetchingButton()
     }
     
     //MARK: - Setup UI
@@ -62,14 +67,18 @@ final class AirQualityVC: UIViewController {
         view.addSubview(lonTextField)
         view.addSubview(fetchButton)
         view.addSubview(resultLabel)
-        view.addSubview(qualityIndexText)
+        view.addSubview(qualityIndexImage)
         
         latTextField.translatesAutoresizingMaskIntoConstraints = false
         lonTextField.translatesAutoresizingMaskIntoConstraints = false
         fetchButton.translatesAutoresizingMaskIntoConstraints = false
         resultLabel.translatesAutoresizingMaskIntoConstraints = false
-        qualityIndexText.translatesAutoresizingMaskIntoConstraints = false
+        qualityIndexImage.translatesAutoresizingMaskIntoConstraints = false
         
+        constraintsUI()
+    }
+    
+    private func constraintsUI() {
         NSLayoutConstraint.activate([
             latTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             latTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -81,24 +90,30 @@ final class AirQualityVC: UIViewController {
             
             fetchButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             fetchButton.topAnchor.constraint(equalTo: lonTextField.bottomAnchor, constant: 20),
+            fetchButton.widthAnchor.constraint(equalToConstant: 150),
             
             resultLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             resultLabel.topAnchor.constraint(equalTo: fetchButton.bottomAnchor, constant: 20),
             resultLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             resultLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-            qualityIndexText.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            qualityIndexText.topAnchor.constraint(equalTo: resultLabel.bottomAnchor, constant: 20),
-            qualityIndexText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            qualityIndexText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            qualityIndexText.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            qualityIndexImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            qualityIndexImage.topAnchor.constraint(equalTo: resultLabel.bottomAnchor, constant: 20),
+            qualityIndexImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            qualityIndexImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            qualityIndexImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
-        
-        fetchButton.addTarget(self, action: #selector(fetchAirQuality), for: .touchUpInside)
+    }
+    
+    private func actionForFetchingButton() {
+        let fetchAction = UIAction { [weak self] _ in
+            self?.fetchAirQuality()
+        }
+        fetchButton.addAction(fetchAction, for: .touchUpInside)
     }
     
     //MARK: - Button Action
-    @objc private func fetchAirQuality() {
+    private func fetchAirQuality() {
         guard let latText = latTextField.text, let lat = Double(latText),
               let lonText = lonTextField.text, let lon = Double(lonText) else {
             let alert = UIAlertController(title: "Invalid Lat & Long", message: "Default-ზე მოაქ თბილისი, ამიტომ გთხოვთ ზუსტი კოორდინატები ჩაწეროთ, მადლობა ყურადღებისთვის.", preferredStyle: .alert)

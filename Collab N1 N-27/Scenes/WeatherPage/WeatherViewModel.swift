@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: - Constants
 struct Constants {
     static let apiKey = "980a60647f866587fa2048fcc7e6af5f"
     static let dateFormat = "MMM dd, yyyy HH:mm"
@@ -15,7 +16,7 @@ struct Constants {
     static let cityNameErrorMessage = "Failed to fetch weather data for the entered city name."
 }
 
-
+//MARK: - ViewModel
 final class WeatherViewModel {
     private let networkingService = NetworkingService.shared
     private var weatherInfo: WeatherInfo?

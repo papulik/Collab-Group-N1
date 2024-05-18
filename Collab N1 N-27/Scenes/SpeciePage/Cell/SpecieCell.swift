@@ -8,8 +8,8 @@
 import UIKit
 
 final class SpecieCell: UITableViewCell {
-    // MARK: Properties
     
+    // MARK: Properties
     private let mainStackView = UIStackView()
     private let nameStackView = UIStackView()
     private let authorStackView = UIStackView()
@@ -26,7 +26,6 @@ final class SpecieCell: UITableViewCell {
     private let wikipediaResponse = UILabel()
     
     // MARK: - Initialization
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .lightGray
@@ -42,8 +41,8 @@ final class SpecieCell: UITableViewCell {
     }
     
     // MARK: - Setup
-    
     private func setupMainStackView() {
+        contentView.backgroundColor = .lightGray
         contentView.addSubview(mainStackView)
         
         mainStackView.axis = .vertical
@@ -114,8 +113,22 @@ final class SpecieCell: UITableViewCell {
         
         mainStackView.addArrangedSubview(wikipedia)
         mainStackView.addArrangedSubview(wikipediaResponse)
+        
+        //MARK: - Tap Gesture
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openWikipedia))
+        wikipediaResponse.isUserInteractionEnabled = true
+        wikipediaResponse.addGestureRecognizer(tapGesture)
     }
     
+    //MARK: - Action For Wikipedia Url
+    @objc private func openWikipedia() {
+        guard let urlString = wikipediaResponse.text, let url = URL(string: urlString) else {
+            return
+        }
+        UIApplication.shared.open(url)
+    }
+    
+    //MARK: - confifgure Cell Elements
     func configure(with speciesInfo: Taxon ) {
         if let imageURL = URL(string: speciesInfo.defaultPhoto?.mediumUrl ?? "") {
             DispatchQueue.global().async {
