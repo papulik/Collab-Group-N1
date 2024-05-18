@@ -10,11 +10,9 @@ import Foundation
 final class SolarDataViewModel {
     
     // MARK: - Properties
-    
     var solarData: SolarData?
     
     // MARK: - Methods
-    
     func fetchSolarData(address: String, completion: @escaping (Result<SolarData, Error>) -> Void) {
         let apiKey = "NHnRDWjH0QLAR7v66UHhZOq249oz5pbeu8dABdqR"
         let urlString = "https://developer.nrel.gov/api/solar/solar_resource/v1.json?api_key=\(apiKey)&address=\(address)"

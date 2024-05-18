@@ -10,7 +10,6 @@ import UIKit
 final class SolarTableViewCell: UITableViewCell {
     
     // MARK: - Properties
-    
     static let identifier = "SolarTableViewCell"
     
     private let dataLabel: UILabel = {
@@ -21,9 +20,17 @@ final class SolarTableViewCell: UITableViewCell {
     }()
     
     // MARK: - Initialization
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupCell()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - Setup Cell
+    private func setupCell() {
         contentView.addSubview(dataLabel)
         contentView.backgroundColor = .lightGray
         
@@ -35,12 +42,7 @@ final class SolarTableViewCell: UITableViewCell {
         ])
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - Configuration
-    
     final func configure(with text: String) {
         dataLabel.text = text
     }

@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers =  [AirQualityVC(), WeatherPageVC(),  SpeciePageVC(), SolarResourcePageVC(), PopulationPageVC()]
+        tabBarController.viewControllers =  [AirQualityVC(), WeatherPageVC(), SpeciePageVC(), SolarResourcePageVC(), PopulationPageVC()]
         
         tabBarController.tabBar.items?[0].image = UIImage(systemName: "air.conditioner.vertical.fill")
         tabBarController.tabBar.items?[1].image = UIImage(systemName: "sun.min.fill")
@@ -28,8 +28,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.tabBar.items?[3].image = UIImage(systemName: "bolt.circle.fill")
         tabBarController.tabBar.items?[4].image = UIImage(systemName: "figure.and.child.holdinghands")
         
-        tabBarController.tabBar.tintColor = .white
-        tabBarController.tabBar.backgroundColor = .darkGray
+        tabBarController.tabBar.tintColor = .systemBlue
+        tabBarController.tabBar.backgroundColor = .backGroundColoring
+        tabBarController.tabBar.unselectedItemTintColor = UIColor.lightGray
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()

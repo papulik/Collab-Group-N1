@@ -16,7 +16,7 @@ final class WeatherTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
-        contentView.backgroundColor = .gray
+        contentView.backgroundColor = .lightGray
     }
     
     required init?(coder: NSCoder) {
